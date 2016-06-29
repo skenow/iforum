@@ -39,7 +39,7 @@ CREATE TABLE `bb_attachments` (
   `mimetype` varchar(255) NOT NULL default '',
   `online` tinyint(1) unsigned NOT NULL default '1',
   `attach_time` int(10) unsigned NOT NULL default '0',
-  `download` int(10) unsigned NOT NULL default '0',
+  `download` int(10) unsign ed NOT NULL default '0',
   PRIMARY KEY  (`attach_id`),
   KEY `post_id` (`post_id`)
 );
