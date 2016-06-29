@@ -2,8 +2,13 @@ IFORUM
 
 ImpressCMS bulletin Board, for ImpressCMS >= 1.2
 
-
 Changelog 2.0 Final
+
+=============
+Bugfix: #468 - installation error on newer MySQL
+Bugfix: #452 - User image only works with Gravatar enabled
+
+Changelog 2.0 RC
 27 March 2012
 =============
 1 Bugfix: Link for ICQ fixed (sato-san)
