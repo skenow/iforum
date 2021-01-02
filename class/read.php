@@ -41,9 +41,9 @@ iforum_load_object();
 */
  
 class Read extends ArtObject {
-	function Read($type)
+	function __construct($type)
 	{
-		$this->ArtObject("bb_reads_".$type);
+		parent::__construct("bb_reads_".$type);
 		$this->initVar('read_id', XOBJ_DTYPE_INT);
 		$this->initVar('uid', XOBJ_DTYPE_INT);
 		$this->initVar('read_item', XOBJ_DTYPE_INT);
@@ -89,12 +89,13 @@ class IforumReadHandler extends ArtObjectHandler {
 	*/
 	var $mode;
 	 
-	function IforumReadHandler(&$db, $type)
+	function __construct(&$db, $type)
 	{
 		$type = ("forum" == $type) ? "forum" :
 		 "topic";
-		$this->ArtObjectHandler($db, 'bb_reads_'.$type, 'Read'.$type, 'read_id', 'post_id');
-		$this->type = $type;
+		parent::__construct($db, 'bb_reads_'.$type, 'Read'.$type, 'read_id', 'post_id');
+
+    $this->type = $type;
 		$iforumConfig = iforum_load_config();
 		$this->lifetime = !empty($iforumConfig["read_expire"]) ? $iforumConfig["read_expire"] * 24 * 3600 :
 		 30 * 24 * 3600;
@@ -269,4 +270,3 @@ class IforumReadHandler extends ArtObjectHandler {
 	}
 	 
 }
-?>

@@ -35,16 +35,16 @@ include_once dirname(__FILE__).'/read.php';
 */
  
 class Readforum extends Read {
-	function Readforum()
+	function __construct()
 	{
-		$this->Read("forum");
+        parent::__construct("forum");
 	}
 }
  
 class IforumReadforumHandler extends IforumReadHandler {
-	function IforumReadforumHandler(&$db)
+	function __construct(&$db)
 	{
-		$this->IforumReadHandler($db, "forum");
+        parent::__construct($db, "forum");
 	}
 	 
 	/**
@@ -71,7 +71,7 @@ class IforumReadforumHandler extends IforumReadHandler {
 		$cookie_name = "LF";
 		$items = array();
 		if (!empty($status)):
-		$item_handler = icms_getmodulehandler('forum', basename(dirname(dirname(__FILE__ ) ) ), 'iforum' );
+		$item_handler = icms_getmodulehandler('forum', basename(dirname(__DIR__) ), 'iforum' );
 		$items_id = $item_handler->getIds();
 		foreach($items_id as $key)
 		{
@@ -101,7 +101,7 @@ class IforumReadforumHandler extends IforumReadHandler {
 			return true;
 		}
 		 
-		$item_handler = icms_getmodulehandler('forum', basename(dirname(dirname(__FILE__ ) ) ), 'iforum' );
+		$item_handler = icms_getmodulehandler('forum', basename(dirname(__DIR__) ), 'iforum' );
 		$items_obj = $item_handler->getAll(null, array("forum_last_post_id"));
 		foreach(array_keys($items_obj) as $key)
 		{
@@ -112,4 +112,3 @@ class IforumReadforumHandler extends IforumReadHandler {
 		return true;
 	}
 }
-?>

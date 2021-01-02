@@ -36,9 +36,9 @@ class ArtObject extends _XoopsPersistableObject
      */
     var $plugin_path;
     
-    function ArtObject($table = "")
+    function __construct($table = "")
     {
-	    $this->_XoopsPersistableObject($table);
+	    parent::__construct($table);
     }
 
     /**
@@ -69,7 +69,7 @@ class ArtObject extends _XoopsPersistableObject
 	    if (!isset($loaded)) return;
 	    $loaded = 1;
 	    
-	    $path = empty($this->plugin_path) ? dirname(__FILE__).'/filters' : $this->plugin_path;
+	    $path = empty($this->plugin_path) ? __DIR__ .'/filters' : $this->plugin_path;
         @include_once $path.'/filter.php';
         foreach ($this->_filters as $f) {
             @include_once $path.'/'.strtolower($f).'php';
@@ -133,9 +133,9 @@ class ArtObjectHandler extends _XoopsPersistableObjectHandler
 	 *
 	 * @param object $db reference to the {@link XoopsDatabase} object	 
 	 **/
-    function ArtObjectHandler(&$db, $table = "", $className = "", $keyName = "", $identifierName = false) {
+    function __construct(&$db, $table = "", $className = "", $keyName = "", $identifierName = false) {
 	    $table = $db->prefix($table);
-        $this->_XoopsPersistableObjectHandler( $db, $table, $className, $keyName, $identifierName );
+        parent::__construct( $db, $table, $className, $keyName, $identifierName );
     }
     
     function _loadHandler($name, $params = array()) {
@@ -365,4 +365,3 @@ class ArtObjectHandler extends _XoopsPersistableObjectHandler
     }
 }
 endif;
-?>

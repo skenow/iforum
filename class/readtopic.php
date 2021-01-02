@@ -23,7 +23,7 @@
 * @version  $Id$
 */
  
-include_once dirname(__FILE__).'/read.php';
+include_once __DIR__ .'/read.php';
  
 /**
 * A handler for read/unread handling
@@ -35,9 +35,9 @@ include_once dirname(__FILE__).'/read.php';
 */
  
 class Readtopic extends Read {
-	function Readtopic()
+	function __construct()
 	{
-		$this->Read("topic");
+        parent::__construct("topic");
 		//$this->initVar('forum_id', XOBJ_DTYPE_INT);
 	}
 }
@@ -51,9 +51,9 @@ class IforumReadtopicHandler extends IforumReadHandler {
 	*/
 	var $items_per_forum;
 	 
-	function IforumReadtopicHandler(&$db)
+	function __construct(&$db)
 	{
-		$this->IforumReadHandler($db, "topic");
+        parent::__construct($db, "topic");
 		$iforumConfig = iforum_load_config();
 		$this->items_per_forum = isset($iforumConfig["read_items"])?intval($iforumConfig["read_items"]):
 		100;
@@ -167,4 +167,3 @@ class IforumReadtopicHandler extends IforumReadHandler {
 		return true;
 	}
 }
-?>

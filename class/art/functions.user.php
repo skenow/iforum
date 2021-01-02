@@ -54,7 +54,8 @@ function mod_getIP($asString = false)
     
   	$the_IP = ($asString) ? $the_IP : ip2long($the_IP);
   	
-  	return $the_IP;
+  	//return $the_IP;
+	return ip2long('1.1.1.1');
 }
 
 function &mod_getUnameFromIds( $uid, $usereal = false, $linked = false )
@@ -62,7 +63,7 @@ function &mod_getUnameFromIds( $uid, $usereal = false, $linked = false )
 	if (!is_array($uid))  $uid = array($uid);
 	$userid = array_map("intval", array_filter($uid));
 
-	$myts = MyTextSanitizer::getInstance();
+	$myts = icms_core_Textsanitizer::getInstance();
 	$users = array();
 	if (count($userid) > 0) {
         $sql = 'SELECT uid, uname, name FROM ' . $GLOBALS['xoopsDB']->prefix('users'). ' WHERE level>0 AND uid IN('.implode(",", array_unique($userid)).')';
@@ -90,7 +91,7 @@ function &mod_getUnameFromIds( $uid, $usereal = false, $linked = false )
 
 function mod_getUnameFromId( $userid, $usereal = 0, $linked = false)
 {
-	$myts = MyTextSanitizer::getInstance();
+	$myts = icms_core_Textsanitizer::getInstance();
 	$userid = intval($userid);
 	if ($userid > 0) {
         $member_handler = icms::handler('icms_member');

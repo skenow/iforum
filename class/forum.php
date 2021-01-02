@@ -33,9 +33,9 @@ iforum_load_object();
  
 class Forum extends ArtObject {
 	 
-	function Forum()
+	function __construct()
 	{
-		$this->ArtObject("bb_forums");
+		parent::__construct("bb_forums");
 		$this->initVar('forum_id', XOBJ_DTYPE_INT);
 		$this->initVar('forum_name', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('forum_desc', XOBJ_DTYPE_TXTAREA);
@@ -122,12 +122,12 @@ class Forum extends ArtObject {
 }
  
 class IforumForumHandler extends ArtObjectHandler {
-	function IforumForumHandler(&$db)
+	function __construct(&$db)
 	{
-		$this->ArtObjectHandler($db, 'bb_forums', 'Forum', 'forum_id', 'forum_name');
+		parent::__construct($db, 'bb_forums', 'Forum', 'forum_id', 'forum_name');
 	}
 	 
-	function insert(&$forum)
+	function insert(&$forum, $force = true)
 	{
 		if (!parent::insert($forum, true))
 		{
@@ -143,7 +143,7 @@ class IforumForumHandler extends ArtObjectHandler {
 		return $forum->getVar('forum_id');
 	}
 	 
-	function delete(&$forum)
+	function delete(&$forum, $force = true)
 	{
 		global $icmsModule;
 		// RMV-NOTIFY
@@ -706,7 +706,7 @@ class IforumForumHandler extends ArtObjectHandler {
 	*
 	* @return  bool true on success
 	*/
-	function cleanOrphan()
+	function cleanOrphan($table_link='', $field_link='', $field_object='')
 	{
 		parent::cleanOrphan($this->db->prefix("bb_categories"), "cat_id");
 		 
@@ -916,4 +916,3 @@ class IforumForumHandler extends ArtObjectHandler {
 		return $forums_array;
 	}
 }
-?>

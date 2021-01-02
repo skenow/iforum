@@ -28,9 +28,9 @@ icms_cp_header();
  
 $op = !empty($_GET['op'])? $_GET['op'] :
  (!empty($_POST['op'])?$_POST['op']:"");
-$cat_id = intval(!empty($_GET['cat_id'])? $_GET['cat_id'] : (!empty($_POST['cat_id'])?$_POST['cat_id']:0) );
+$cat_id = (int)(!empty($_GET['cat_id']) ? $_GET['cat_id'] : (!empty($_POST['cat_id']) ? $_POST['cat_id'] : 0));
  
-$category_handler = icms_getmodulehandler('category', basename(dirname(dirname(__FILE__ ) ) ), 'iforum' );
+$category_handler = icms_getmodulehandler('category', basename(dirname(__DIR__) ), 'iforum' );
  
 /**
 * newCategory()
@@ -50,7 +50,7 @@ function newCategory()
 */
 function editCategory($cat_id = 0)
 {
-	$category_handler =icms_getmodulehandler('category', basename(dirname(dirname(__FILE__ ) ) ), 'iforum' );
+	$category_handler =icms_getmodulehandler('category', basename(dirname(__DIR__) ), 'iforum' );
 	if ($cat_id > 0)
 	{
 		$fc = $category_handler->get($cat_id);
@@ -172,7 +172,7 @@ switch ($op)
 	case "del":
 	if (empty($_POST['confirm']))
 	{
-		xoops_confirm(array('op' => 'del', 'cat_id' => intval($_GET['cat_id']), 'confirm' => 1), 'admin_cat_manager.php', _AM_IFORUM_WAYSYWTDTTAL);
+		xoops_confirm(array('op' => 'del', 'cat_id' => (int)$_GET['cat_id'], 'confirm' => 1), 'admin_cat_manager.php', _AM_IFORUM_WAYSYWTDTTAL);
 		break;
 	}
 	else
@@ -233,4 +233,3 @@ switch ($op)
 }
  
 icms_cp_footer();
-?>
